@@ -1,0 +1,17 @@
+- login.php (kjer se logira uporabnik)
+- index.php (kjer se dogajajo stvari)
+- ustvari bazo in dve tabeli, users in MicroBlogEntries (id, headline, text, datestamp)
+- password je MD5
+- parametriziran dostop do baze in čiščenje z metodo escape_magic_characters
+- vse ima sporočila, če ni dostopa
+- samo eden uporabnik v users tabeli
+- na enem mestu opozorilna msges
+- uporabi printf in %s za injectanje programske php logike v tekst
+- spedenaj navigacijo
+- jsmin orodje
+- izračunavaj height div-a
+- div in opozorila (require_once("include/warrningDiv.inc.php"),$warrningDivStart, $warrningDivEnd)
+- log tabelo vseh akcij v aplikaciji (odpade, ker je premajhna aplikacija)
+- vsi accepti morajo imeti pravice dostopa
+- uredi in briši imajo linke le admin in avtor članka
+- dodaš novega ali brišeš starega uporabnika, dodaj deleted (non-destructive delete)
