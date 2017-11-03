@@ -43,7 +43,7 @@ class WriteToDB {
 
     function writeNewPassword($password, $userId) {
 
-        $this->query = "UPDATE users SET `password`=? WHERE id=?";
+        $this->query = "UPDATE `users` SET password=? WHERE id=?";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* escape chars */
@@ -62,6 +62,13 @@ class WriteToDB {
 
     function addEntry($headline, $comment, $email, $website, $userId) {
 
+        echo 'DEBUG addEntry metode....'.'<br />';
+        echo $headline.'<br />';
+        echo $comment.'<br />';
+        echo $email.'<br />';
+        echo $website.'<br />';
+        echo $userId.'<br />';
+
          /* escape chars */
         $headline = $this->db->real_escape_string($headline);
         $comment = $this->db->real_escape_string($comment);
@@ -69,7 +76,7 @@ class WriteToDB {
         $website = $this->db->real_escape_string($website);
         //$userId is setted by db
 
-        $this->query = "INSERT INTO `entries`(`headline`,`body`,`email`,`weburl`,`idUser`,`datestamp`) VALUES (?, ?, ?, ?, ?, now())";
+        $this->query = "INSERT INTO `entries`(headline, body, email, weburl, idUser, datestamp, deleted) VALUES (?, ?, ?, ?, ?, now(), 0)";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* bind sql stmnt params */
@@ -95,8 +102,8 @@ class WriteToDB {
         //entryId is setted by db
 
         $this->query = "UPDATE `entries`
-                        SET `headline`=?, `body`=?, `email`=?, `weburl`=?
-                        WHERE `idEntry`=?";
+                        SET headline=?, body=?, email=?, weburl=?
+                        WHERE idEntry=?";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* bind sql stmnt params */
@@ -112,7 +119,7 @@ class WriteToDB {
         /* escape chars */
         $entryId = $this->db->real_escape_string($entryId);
 
-        $this->query = "UPDATE `entries` SET `deleted`=TRUE WHERE `idEntry`=?";
+        $this->query = "UPDATE `entries` SET deleted=TRUE WHERE idEntry=?";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* bind sql stmnt params */
@@ -132,8 +139,8 @@ class WriteToDB {
         $password = $this->db->real_escape_string($password);
         $userLevelId = $this->db->real_escape_string($userLevelId);
 
-        $this->query = "INSERT INTO users (`username`, `password`, `userLevelId`)
-                        VALUES (?, ?, ?)";
+        $this->query = "INSERT INTO `users` (username, password, userLevelId, deleted)
+                        VALUES (?, ?, ?, 0)";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* bind sql stmnt params */
@@ -153,7 +160,7 @@ class WriteToDB {
         /* escape chars */
         $userId = $this->db->real_escape_string($userId);
 
-        $this->query = "UPDATE users SET deleted=TRUE WHERE `id`=?";
+        $this->query = "UPDATE `users` SET deleted=TRUE WHERE id=?";
         if ($this->stmt = $this->db->prepare($this->query)) {
 
             /* bind sql stmnt params */
@@ -171,7 +178,7 @@ class WriteToDB {
         /* escape chars */
         $email = $this->db->real_escape_string($email);
 
-        $this->query = "INSERT INTO emails (`email_address`)
+        $this->query = "INSERT INTO `emails` (email_address)
                         VALUES (?)";
         if ($this->stmt = $this->db->prepare($this->query)) {
 

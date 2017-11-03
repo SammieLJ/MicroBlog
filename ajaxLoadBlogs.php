@@ -17,8 +17,9 @@ if (!isset($_SESSION['username'])) {
     die("You must be logged in! <a href='../index.php'>Click here</a> for login! ");
 }
 if(isset($_POST['pageidx']) || !empty($_POST['pageidx'])) {
-   $pageidx = mysql_real_escape_string($_POST['pageidx']);
-    echo "Dobu AJAX Req.! --> ";
+   //$pageidx = mysql_real_escape_string($_POST['pageidx']);
+    $pageidx = $_POST['pageidx'];
+    // echo "Dobu AJAX Req.! --> ";
 } else {
    $pageidx = 1;
 }
@@ -52,24 +53,32 @@ if (empty($entries)) {
     <div id="entry"><h3>Ni nobene objave!</h3></div>
 <?php
 } else {
-echo " START ";
+//echo " START DEBUG INfO... ";
 /* print all microblog entries */
 $allEntries = count($entries);
-$lastPageIdx = round(($allEntries /3), 0, PHP_ROUND_HALF_UP);
+
+/*if (empty($entries)) {
+    $allEntries = 0;
+} else {
+    $allEntries = count($entries);
+}*/
+//$lastPageIdx = round(($allEntries /3), 0, PHP_ROUND_HALF_UP);
+$lastPageIdx = ceil($allEntries /3);
 
 $previousIdx = $pageidx-1;
-echo "PAGE IDX: $pageidx PROGRAM PAGE IDX: $previousIdx";
+//echo "PAGE IDX: $pageidx PROGRAM PAGE IDX: $previousIdx";
 $startEntry = ($previousIdx * 3) + 1;
 /*if ($startEntry === 0) {
     $startEntry = 1;
 }*/
 $stopEntry = ($pageidx) * 3;
-echo "AllEntries: " . $allEntries . " lastPageIdx:" . $lastPageIdx . " startEntry:" . $startEntry . " stopEntry:" . $stopEntry;
+//echo "AllEntries: " . $allEntries . " lastPageIdx:" . $lastPageIdx . " startEntry:" . $startEntry . " stopEntry:" . $stopEntry;
+//var_dump($entries);
 
 //foreach ($entries as $value) {
 for ($i = $startEntry; $i <= $stopEntry; $i++) {
-    if (!empty($entries[$i])) {
-    $value = $entries[$i];
+    if (!empty($entries[$i-1])) {
+    $value = $entries[$i-1];
 ?>
     <div id="entry">
     <div>
@@ -106,7 +115,7 @@ for ($i = $startEntry; $i <= $stopEntry; $i++) {
 }//end of if-else
 
 //if need previous and next buttons
-if ($allEntries > 3)
+if (!empty($allEntries) && $allEntries > 3)
 {
 ?>
 <div id="navigation" style="height: 10px;">

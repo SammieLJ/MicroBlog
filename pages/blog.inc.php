@@ -40,7 +40,7 @@ include_once("classes/Microblog/Db/ReadFromDB.php");
     });
 
     function setPrevious() {
-        alert('Berem podatke iz hidden - previous!');
+        //alert('Berem podatke iz hidden - previous!');
         // get from hidden fields
         var pageIndex =  $('#pageidx').val();
         var lastPageIndex = $('#lastPageIdx').val();
@@ -52,7 +52,7 @@ include_once("classes/Microblog/Db/ReadFromDB.php");
         }
         $('#pageidx').val(previousPageIndex);
         //alert('Previous - pageIndex: ' + pageIndex);
-        alert('Predhodna stran: ' + previousPageIndex + ', zadnja stran:' + lastPageIndex);
+        //alert('Predhodna stran: ' + previousPageIndex + ', zadnja stran:' + lastPageIndex);
         $('#entries').hide();
         $.post('ajaxLoadBlogs.php', $('#navform').serialize(),
           function(output) {
@@ -61,7 +61,7 @@ include_once("classes/Microblog/Db/ReadFromDB.php");
     }
 
     function setNext() {
-        alert('Berem podatke iz hidden - next!');
+        //alert('Berem podatke iz hidden - next!');
         // get from hidden fields
         var pageIndex =  $('#pageidx').val();
         var lastPageIndex = $('#lastPageIdx').val();
@@ -73,7 +73,7 @@ include_once("classes/Microblog/Db/ReadFromDB.php");
         }
         $('#pageidx').val(nextPageIndex);
         //alert('Next - pageIndex: ' + pageIndex);
-        alert('Naslednja stran: ' + nextPageIndex + ', zadnja stran:' + lastPageIndex);
+        //alert('Naslednja stran: ' + nextPageIndex + ', zadnja stran:' + lastPageIndex);
 
         $('#entries').hide();
         $.post('ajaxLoadBlogs.php', $('#navform').serialize(),

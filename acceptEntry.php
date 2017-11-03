@@ -40,9 +40,9 @@ if(isset($_SESSION['userlevel']) && $_SESSION['userlevel']<2) {
         $entryId = $_POST['entryID'];
     }
         
-/*echo '<pre>';
+echo '<pre>';
 print_r($_POST);
-echo '</pre>';*/
+echo '</pre>';
 
 //nastavi back link na vnos bloga
 //$backLinkToAddEntry = "<a href=\"member.php?p=enterblog\">Klik nazaj</a> na vnos bloga.";

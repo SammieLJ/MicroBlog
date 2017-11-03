@@ -8,12 +8,7 @@
  */
 class ConfigDB {
     //constants
-    /*const DbAddress = 'localhost';
-    const DbUsername = 'frontend_admin';
-    const DbPassword = 'SamSung76';
-    const DbDatabase = 'frontend_dev';
-    const DbPort = 3306;*/
-
+    
     const DbAddress = 'localhost';
     const DbUsername = 'root';
     const DbPassword = '';

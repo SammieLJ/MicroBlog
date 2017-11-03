@@ -93,8 +93,8 @@ class ReadFromDB {
     function getEntries() {
         $temp_entries = array();
         $this->query = "SELECT en.`idEntry`, en.`headline`, en.`body`, en.`email`, en.`weburl`, en.`idUser`, en.`datestamp`, u.`username`
-                  FROM entries AS en
-                  INNER JOIN users AS u
+                  FROM `entries` AS en
+                  INNER JOIN `users` AS u
                   ON en.`idUser`=u.`id`
                   WHERE en.`deleted`=0";
 
@@ -118,8 +118,8 @@ class ReadFromDB {
 
     function getEntry($entryId) {
         $this->query = "SELECT en.`idEntry`, en.`headline`, en.`body`, en.`email`, en.`weburl`, en.`idUser`, en.`datestamp`, u.`username`
-                  FROM entries AS en
-                  INNER JOIN users AS u
+                  FROM `entries` AS en
+                  INNER JOIN `users` AS u
                   ON en.`idUser`=u.`id`
                   WHERE en.`deleted`=0 AND en.`idEntry`=?";
 
@@ -148,8 +148,8 @@ class ReadFromDB {
     function getLoginUser($username, $password, &$dbUserId, &$dbusername, &$dbpassword, &$dbUserLevel, &$dbRoleDesc) {
         $numrows = 0;
         $this->query = "SELECT u.`id`, u.`username`, u.`password`, u.`userLevelId`, r.`ShortDesc`
-                  FROM users u
-                  INNER JOIN roles r
+                  FROM `users` AS u
+                  INNER JOIN `roles` AS r
                   ON u.`userLevelId` = r.`idRole`
                   WHERE u.`username`=? AND u.`password`=? AND deleted=FALSE";
 
@@ -184,8 +184,8 @@ class ReadFromDB {
     function getUsersList() {
         $usersList = array();
         $this->query = "SELECT u.`id`, u.`username`, u.`password`, u.`userLevelId`, r.`ShortDesc`
-                        FROM users u
-                        INNER JOIN roles r
+                        FROM `users` AS u
+                        INNER JOIN `roles` AS r
                         ON u.`userLevelId` = r.`idRole` AND deleted=FALSE";
        if ($this->stmt = $this->db->prepare($this->query)) {
             /* execute query */
@@ -210,7 +210,7 @@ class ReadFromDB {
     function getUserRolesList() {
         $userRolesList = array();
 
-        $this->query = "SELECT `idRole`, `ShortDesc`, `Description` FROM roles";
+        $this->query = "SELECT `idRole`, `ShortDesc`, `Description` FROM `roles`";
         if ($this->stmt = $this->db->prepare($this->query)) {
             /* execute query */
             $this->stmt->execute();
