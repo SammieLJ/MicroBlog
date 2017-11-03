@@ -66,12 +66,14 @@ $allEntries = count($entries);
 $lastPageIdx = ceil($allEntries /3);
 
 $previousIdx = $pageidx-1;
+// DEBUG
 //echo "PAGE IDX: $pageidx PROGRAM PAGE IDX: $previousIdx";
 $startEntry = ($previousIdx * 3) + 1;
 /*if ($startEntry === 0) {
     $startEntry = 1;
 }*/
 $stopEntry = ($pageidx) * 3;
+// DEBUG
 //echo "AllEntries: " . $allEntries . " lastPageIdx:" . $lastPageIdx . " startEntry:" . $startEntry . " stopEntry:" . $stopEntry;
 //var_dump($entries);
 

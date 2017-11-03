@@ -62,12 +62,14 @@ class WriteToDB {
 
     function addEntry($headline, $comment, $email, $website, $userId) {
 
+        /*
+         *  DEBUG info
         echo 'DEBUG addEntry metode....'.'<br />';
         echo $headline.'<br />';
         echo $comment.'<br />';
         echo $email.'<br />';
         echo $website.'<br />';
-        echo $userId.'<br />';
+        echo $userId.'<br />'; */
 
          /* escape chars */
         $headline = $this->db->real_escape_string($headline);
