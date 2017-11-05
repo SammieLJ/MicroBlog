@@ -36,9 +36,10 @@ if (isset($_POST['email']) && !empty($_POST['email'])) {
     //unset($_POST['email']);
     //unset($logEntry);
     //header ("Location: member.php?p=getsources");
-    print "<script>";
+
+    /*print "<script>";
     print " self.location='../index.php';"; // Comment this line if you don't want to redirect
-    print "</script>";
+    print "</script>";*/
 }
 
 ?>

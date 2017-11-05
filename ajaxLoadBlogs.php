@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
 }
 if(isset($_POST['pageidx']) || !empty($_POST['pageidx'])) {
    //$pageidx = mysql_real_escape_string($_POST['pageidx']);
-    $pageidx = $_POST['pageidx'];
+    $pageidx = addslashes($_POST['pageidx']);
     // echo "Dobu AJAX Req.! --> ";
 } else {
    $pageidx = 1;
