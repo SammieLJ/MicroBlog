@@ -116,6 +116,60 @@ class ReadFromDB {
         return $temp_entries;
     }
 
+    function getSearchedEntries($searchBoxArray) {
+        $temp_entries = array();
+
+        $this->query = "SELECT en.`idEntry`, en.`headline`, en.`body`, en.`email`, en.`weburl`, en.`idUser`, en.`datestamp`, u.`username`
+                  FROM `entries` AS en
+                  INNER JOIN `users` AS u
+                  ON en.`idUser`=u.`id`
+                  WHERE (`headline` LIKE ?)
+                  OR (`body` like ?) OR (`email` LIKE ?) OR (`weburl` LIKE ?)";
+
+        //var_dump($searchBoxArray);
+        if ($this->stmt = $this->db->prepare($this->query)) {
+
+            /* escape chars for $headline */
+            $headline = $this->db->real_escape_string($searchBoxArray['headline']);
+
+            /* escape chars for $body */
+            $body = $this->db->real_escape_string($searchBoxArray['body']);
+
+            /* escape chars for $email */
+            $email = $this->db->real_escape_string($searchBoxArray['email']);
+
+            /* escape chars for $weburl */
+            $weburl = $this->db->real_escape_string($searchBoxArray['weburl']);
+
+            /* Now, we need to add 4 random chars in empty textbox strings, that MySQL can return with result from filled textbox */
+            $this->returnRandomString($headline);
+            $this->returnRandomString($body);
+            $this->returnRandomString($email);
+            $this->returnRandomString($weburl);
+
+            /* Add % % for LIKE statement,  that only one word could find let say, word youtube can return blog from http://www.youtube.com  */
+            $headline = '%'.$headline.'%'; $body = '%'.$body.'%'; $email = '%'.$email.'%'; $weburl = '%'.$weburl.'%';
+
+            /* bind sql stmnt params */
+            //var_dump($headline, $body, $email, $weburl);
+            $this->stmt -> bind_param("ssss", $headline, $body, $email, $weburl);
+
+            /* execute query */
+            $this->stmt->execute();
+
+            /* bind result variables */
+            $this->stmt->bind_result($this->idEntry, $this->headline, $this->body, $this->email, $this->weburl, $this->id_User, $this->date, $this->author);
+
+            /* fetch values */
+            while ($this->stmt->fetch()) {
+                $entryObj = new Entry($this->idEntry, $this->headline, $this->body, $this->email, $this->weburl, $this->id_User, $this->date, $this->author);
+                $temp_entries[] = $entryObj;
+            }
+        }
+        return $temp_entries;
+    }
+
+
     function getEntry($entryId) {
         $this->query = "SELECT en.`idEntry`, en.`headline`, en.`body`, en.`email`, en.`weburl`, en.`idUser`, en.`datestamp`, u.`username`
                   FROM `entries` AS en
@@ -224,6 +278,12 @@ class ReadFromDB {
             }
         }
         return $userRolesList;
+    }
+
+    function returnRandomString(&$rString) {
+        if(empty($rString)) {
+            $rString = substr(md5(mt_rand()), 0, 5); // dolžina od 0..5
+        }
     }
 
 }

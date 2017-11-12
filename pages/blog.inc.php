@@ -10,6 +10,7 @@ if (!isset($_SESSION['username'])) {
     die("You must be logged in! <a href='../index.php'>Click here</a> for login! ");
 }
 include_once("classes/Microblog/Db/ReadFromDB.php");
+
 /*if (isset($_POST['pageidx'])) {
     $pageidx = $_POST['pageidx'];
     echo "$pageidx from POST!";
@@ -17,6 +18,23 @@ include_once("classes/Microblog/Db/ReadFromDB.php");
     $pageidx = 1;
     echo "$pageidx default setted!";
 }*/
+
+// check if we are on find (search) page
+if(!empty($_POST['page']) && $_POST['page'] == 'find') {
+    /*$searchBoxArray = array();
+    $searchBoxArray['headline'] = empty($_POST['headline']) ? '' : $_POST['headline'];
+    $searchBoxArray['body'] = empty($_POST['body']) ? '' : $_POST['body'];
+    $searchBoxArray['email'] = empty($_POST['email']) ? '' : $_POST['email'];
+    $searchBoxArray['weburl'] = empty($_POST['weburl']) ? '' : $_POST['weburl']
+    */
+    $headline = empty($_POST['headline']) ? '' : $_POST['headline'];
+    $body = empty($_POST['body']) ? '' : $_POST['body'];
+    $email = empty($_POST['email']) ? '' : $_POST['email'];
+    $weburl = empty($_POST['weburl']) ? '' : $_POST['weburl'];
+    $searchBoxArray = array('headline' => $headline, 'body' => $body, 'email' => $email, 'weburl' => $weburl, );
+    $_SESSION['searchbox'] = $searchBoxArray;
+}
+
 ?>
 <div id="entries"></div>
 <script type="text/javascript" src="scripts/jquery.js"></script>

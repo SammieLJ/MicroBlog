@@ -44,7 +44,15 @@ $entries = array();
  //read data from db and store into session for ajax blog loader
 include_once("classes/Microblog/Db/ReadFromDB.php");
 $readFromDB = new ReadFromDB();
-$entries = $readFromDB->getEntries();
+
+if(isset($_SESSION['searchbox']) && !empty($_SESSION['searchbox'])) {
+    $searchBoxArray = $_SESSION['searchbox'];
+    //var_dump($searchBoxArray);
+    $entries = $readFromDB->getSearchedEntries($searchBoxArray);
+} else {
+    $entries = $readFromDB->getEntries();
+}
+
 unset($readFromDB);  //unload object
 
  /* check if we have some entries */
